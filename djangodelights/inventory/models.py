@@ -13,20 +13,9 @@ class Ingredient(models.Model):
     
     def __str__(self):
         return self.ingredient
-
-class RecipeRequirements(models.Model):
-    menu_item = models.CharField(max_length=40)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    ingredient_quantity = models.FloatField()
-
-    class Meta:
-        ordering = ["menu_item"]
-
-    def __str__(self):
-        return self.menu_item
-
+    
 class MenuItem(models.Model):
-    menu_item = models.ForeignKey(RecipeRequirements, on_delete=models.CASCADE)
+    menu_item = models.CharField(max_length=40)
     price = models.FloatField()
 
     class Meta:
@@ -34,6 +23,18 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.menu_item
+
+class RecipeRequirements(models.Model):
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ingredient_quantity = models.FloatField()
+
+    class Meta:
+        ordering = ["menu_item"]
+
+    def __str__(self):
+        return f"{self.menu_item}"
+
 
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
@@ -43,5 +44,5 @@ class Purchase(models.Model):
         ordering = ["timestamp"]
 
     def __str__(self):
-        return self.menu_item
+        return f"{self.menu_item}"
      
