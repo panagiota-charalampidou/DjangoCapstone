@@ -10,7 +10,7 @@ class Ingredient(models.Model):
 
     class Meta:
         ordering = ["ingredient"]
-    
+  
     def __str__(self):
         return self.ingredient
     
