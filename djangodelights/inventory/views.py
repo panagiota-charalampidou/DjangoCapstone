@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Ingredient
+from .models import Ingredient, MenuItem
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -15,3 +15,7 @@ class IngredientDelete(DeleteView):
   model = Ingredient
   template_name = "inventory/ingredient_delete_form.html"
   success_url = "/ingredients/list"
+
+class MenuList(ListView):
+   model = MenuItem
+   template_name = "inventory/menu.html"
