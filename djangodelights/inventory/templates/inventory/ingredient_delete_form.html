@@ -1,0 +1,18 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/inventory/style.css?{% now "U" %}">
+
+{% endblock %}
+
+{% block content %}
+<h2>Delete ingredient</h2>
+<form method="post">
+<div>
+  {% csrf_token %}
+  <p>Are you sure you want to delete "{{ object.ingredient }}"?</p>
+  <input type="submit" value="Confirm" />
+</div>
+</form>
+{% endblock %}

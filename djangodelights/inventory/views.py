@@ -10,3 +10,8 @@ def home(request):
 class IngredientList(ListView):
    model=Ingredient
    template_name="inventory/ingredients.html"
+
+class IngredientDelete(DeleteView):
+  model = Ingredient
+  template_name = "inventory/ingredient_delete_form.html"
+  success_url = "/ingredients/list"
