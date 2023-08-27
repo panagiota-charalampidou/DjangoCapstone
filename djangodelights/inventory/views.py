@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Ingredient, MenuItem
+from .models import Ingredient, MenuItem, Purchase
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -19,3 +19,7 @@ class IngredientDelete(DeleteView):
 class MenuList(ListView):
    model = MenuItem
    template_name = "inventory/menu.html"
+
+class PurchaseList(ListView):
+   model = Purchase
+   template_name = "inventory/purchases.html"

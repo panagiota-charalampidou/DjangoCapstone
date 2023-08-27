@@ -1,0 +1,28 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/inventory/style.css?{% now "U" %}">
+
+{% endblock %}
+
+{% block content %}
+<h2>Purchases:</h2>
+<br>
+<table id="purchases">
+    <tr>
+      <th>Menu item</th>
+      <th>Timestamp</th>
+        <th> </th>
+        <th> </th>
+    </tr> 
+      <tr>
+    {% for purchase in purchase_list %}
+    </tr>
+    <tr>
+        <td>{{ purchase.menu_item }}</td>
+        <td>{{ purchase.timestamp }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
