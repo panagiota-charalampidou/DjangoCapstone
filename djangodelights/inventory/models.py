@@ -24,7 +24,7 @@ class MenuItem(models.Model):
     def __str__(self):
         return self.menu_item
 
-class RecipeRequirements(models.Model):
+class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     ingredient_quantity = models.FloatField()
@@ -33,7 +33,7 @@ class RecipeRequirements(models.Model):
         ordering = ["menu_item"]
 
     def __str__(self):
-        return f"{self.menu_item}"
+        return f"{self.ingredient} for {self.menu_item}"
 
 
 class Purchase(models.Model):
