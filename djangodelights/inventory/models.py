@@ -12,7 +12,12 @@ class Ingredient(models.Model):
         ordering = ["ingredient"]
   
     def __str__(self):
-        return self.ingredient
+        return f"""
+        name = {self.ingredient};
+        available quantity = {self.available_quantity};
+        unit = {self.measurement_unit};
+        unit price = {self.price_per_unit}
+        """
     
 class MenuItem(models.Model):
     menu_item = models.CharField(max_length=40)
@@ -22,7 +27,10 @@ class MenuItem(models.Model):
         ordering = ["menu_item"]
 
     def __str__(self):
-        return self.menu_item
+        return f"{self.menu_item}; price={self.price}"
+    
+    def available(self):
+        return all(X.enough() for X in self.reciperequirements_set.all())
 
 class RecipeRequirements(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
@@ -33,7 +41,14 @@ class RecipeRequirements(models.Model):
         ordering = ["menu_item"]
 
     def __str__(self):
-        return f"{self.menu_item}"
+        return f"""
+        Menu Item = {self.menu_item};
+        Ingredient = {self.ingredient};
+        Quantity = {self.ingredient_quantity}
+        """
+    
+    def enough(self):
+        return self.ingredient_quantity <= self.ingredient.available_quantity
 
 
 class Purchase(models.Model):
@@ -44,5 +59,8 @@ class Purchase(models.Model):
         ordering = ["timestamp"]
 
     def __str__(self):
-        return f"{self.menu_item}"
+        return f"""
+        Menu Item = {self.menu_item};
+        Time = {self.timestamp}
+        """
      
