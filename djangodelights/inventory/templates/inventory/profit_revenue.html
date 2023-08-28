@@ -1,0 +1,26 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/inventory/style.css?{% now "U" %}">
+
+{% endblock %}
+
+{% block content %}
+<h2>Revenue:</h2>
+<br>
+<table id="profitrevenues">
+    <tr>
+      <th>Total revenue</th>
+        <th> </th>
+    </tr> 
+      <tr>
+    {% for purchase in profitrevenue_list %}
+    </tr>
+    <tr>
+        <td>{{ purchase.total_revenue }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
+
