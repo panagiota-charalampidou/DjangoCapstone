@@ -50,9 +50,7 @@ class RecipeRequirements(models.Model):
     
     def enough(self):
         return self.ingredient_quantity <= self.ingredient.available_quantity
-    
-    def cost_of_recipe(self):
-        return self.ingredient_quantity * self.ingredient.price_per_unit
+
 
 
 class Purchase(models.Model):
@@ -68,7 +66,6 @@ class Purchase(models.Model):
         Time = {self.timestamp};
         """
     
-    def total_revenue(self):
-        return self.menu_item.price()
+    
     
      

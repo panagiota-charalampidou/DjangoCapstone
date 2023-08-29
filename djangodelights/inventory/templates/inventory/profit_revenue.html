@@ -7,20 +7,25 @@
 {% endblock %}
 
 {% block content %}
-<h2>Revenue:</h2>
+<h2>Totals report:</h2>
 <br>
 <table id="profitrevenues">
     <tr>
       <th>Total revenue</th>
+      <th>Total costs</th>
+      <th>Total profit</th>
+        <th> </th>
+        <th> </th>
         <th> </th>
     </tr> 
       <tr>
-    {% for purchase in profitrevenue_list %}
     </tr>
     <tr>
-        <td>{{ purchase.total_revenue }}</td>
+        <td>{{ revenue }}</td>
+        <td>{{ total_cost }}</td>
+        <td>{{ profit }}</td>
     </tr>
-    {% endfor %}
+
   </table>
 {% endblock %}
 
