@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ingredient, MenuItem, Purchase
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import IngredientAddForm
+from .forms import IngredientAddForm, MenuItemAddForm
 
 # Create your views here.
 def home(request):
@@ -28,6 +28,12 @@ class IngredientAdd(CreateView):
 class MenuList(ListView):
    model = MenuItem
    template_name = "inventory/menu.html"
+
+
+class MenuItemAdd(CreateView):
+   model = MenuItem
+   template_name = "inventory/menu_add_form.html"
+   form_class = MenuItemAddForm
 
 class PurchaseList(ListView):
    model = Purchase

@@ -34,6 +34,9 @@ class MenuItem(models.Model):
     def available(self):
         return all(X.enough() for X in self.reciperequirements_set.all())
     
+    def get_absolute_url(self):
+        return "list"
+    
 
 class RecipeRequirements(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)

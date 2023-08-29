@@ -22,8 +22,9 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("ingredients/list", views.IngredientList.as_view(), name="ingredientlist"),
     path("ingredient/delete/<pk>", views.IngredientDelete.as_view(), name="ingredientdelete"),
-    path("menu", views.MenuList.as_view(), name="menulist"),
+    path("menu/list", views.MenuList.as_view(), name="menulist"),
     path("purchases", views.PurchaseList.as_view(), name="purchaselist"),
     path("profit_revenue", views.RevenueList.as_view(), name="profitrevenuelist"),
-    path("ingredients/add", views.IngredientAdd.as_view(), name="ingredientadd")
+    path("ingredients/add", views.IngredientAdd.as_view(), name="ingredientadd"),
+    path("menu/add", views.MenuItemAdd.as_view(), name="menuitemadd")
 ]
