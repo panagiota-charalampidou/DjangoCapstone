@@ -18,6 +18,8 @@ class Ingredient(models.Model):
         unit = {self.measurement_unit};
         unit price = {self.price_per_unit}
         """
+    def get_absolute_url(self):
+        return "list"
     
 class MenuItem(models.Model):
     menu_item = models.CharField(max_length=40)

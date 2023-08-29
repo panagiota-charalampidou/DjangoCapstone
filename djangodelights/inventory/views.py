@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ingredient, MenuItem, Purchase
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .forms import IngredientAddForm
 
 # Create your views here.
 def home(request):
@@ -17,6 +18,12 @@ class IngredientDelete(DeleteView):
   model = Ingredient
   template_name = "inventory/ingredient_delete_form.html"
   success_url = "/ingredients/list"
+
+class IngredientAdd(CreateView):
+   model = Ingredient
+   template_name = "inventory/ingredient_add_form.html"
+   form_class = IngredientAddForm
+
 
 class MenuList(ListView):
    model = MenuItem
@@ -46,3 +53,4 @@ class RevenueList(LoginRequiredMixin, TemplateView):
         context["profit"] = revenue - total_cost
 
         return context
+   
