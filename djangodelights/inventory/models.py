@@ -55,6 +55,9 @@ class RecipeRequirements(models.Model):
     
     def enough(self):
         return self.ingredient_quantity <= self.ingredient.available_quantity
+    
+    def get_absolute_url(self):
+        return "list"
 
 
 

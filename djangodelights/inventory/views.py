@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Ingredient, MenuItem, Purchase
+from .models import Ingredient, MenuItem, Purchase, RecipeRequirements
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import IngredientAddForm, MenuItemAddForm
+from .forms import IngredientAddForm, MenuItemAddForm, RecipeRequirementsAddForm
 
 # Create your views here.
 def home(request):
@@ -34,6 +34,11 @@ class MenuItemAdd(CreateView):
    model = MenuItem
    template_name = "inventory/menu_add_form.html"
    form_class = MenuItemAddForm
+
+class RecipeRequirementsAdd(CreateView):
+   model = RecipeRequirements
+   template_name = "inventory/reciperequirements_add_form.html"
+   form_class = RecipeRequirementsAddForm
 
 class PurchaseList(ListView):
    model = Purchase

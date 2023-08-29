@@ -10,3 +10,8 @@ class MenuItemAddForm(forms.ModelForm):
     class Meta:
         model = MenuItem
         fields = ("menu_item", "price")
+
+class RecipeRequirementsAddForm(forms.ModelForm):
+    class Meta:
+        model = RecipeRequirements
+        fields = ("menu_item", "ingredient", "ingredient_quantity")
