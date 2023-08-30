@@ -74,6 +74,9 @@ class Purchase(models.Model):
         Time = {self.timestamp};
         """
     
+    def get_absolute_url(self):
+        return "list"
+    
     
     
      

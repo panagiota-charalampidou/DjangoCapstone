@@ -16,3 +16,8 @@ class RecipeRequirementsAddForm(forms.ModelForm):
         model = RecipeRequirements
         fields = ("menu_item", "ingredient", "ingredient_quantity")
 
+class PurchaseAddForm(forms.ModelForm):
+    class Meta:
+        model = Purchase
+        fields = ("menu_item", "timestamp")
+

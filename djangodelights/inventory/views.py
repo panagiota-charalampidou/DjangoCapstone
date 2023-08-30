@@ -1,10 +1,12 @@
+from typing import Any, Dict
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirements
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import IngredientAddForm, MenuItemAddForm, RecipeRequirementsAddForm
+from .forms import IngredientAddForm, MenuItemAddForm, RecipeRequirementsAddForm, PurchaseAddForm
 
 # Create your views here.
 def home(request):
@@ -34,8 +36,6 @@ class IngredientUpdate(UpdateView):
 class MenuList(ListView):
    model = MenuItem
    template_name = "inventory/menu.html"
-   
-
 
 class MenuItemAdd(CreateView):
    model = MenuItem
@@ -50,6 +50,30 @@ class RecipeRequirementsAdd(CreateView):
 class PurchaseList(ListView):
    model = Purchase
    template_name = "inventory/purchases.html"
+
+class PurchaseAdd(CreateView):
+   model = Purchase
+   template_name = "inventory/purchase_add_form.html"
+   form_class = PurchaseAddForm
+
+   def get_context_data(self, **kwargs):
+      context = super().get_context_data(**kwargs)
+      context["menu_items"] = [X for X in MenuItem.objects.all() if X.available()]
+      return context
+   
+   def post(self, request):
+      menu_item_id = request.POST["menu_item"]
+      menu_item = MenuItem.objects.get(pk=menu_item_id)
+      requirements = menu_item.reciperequirements_set
+      purchase = Purchase(menu_item=menu_item)
+
+      for requirement in requirements.all():
+         required_ingredient = requirement.ingredient
+         required_ingredient.ingredient_quantity -= requirement.igredient_quantity
+         required_ingredient.save()
+      
+      purchase.save()
+      return redirect("/purchases")
 
 class RevenueList(LoginRequiredMixin, TemplateView):
    model = Purchase
