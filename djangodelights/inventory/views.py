@@ -24,10 +24,17 @@ class IngredientAdd(CreateView):
    template_name = "inventory/ingredient_add_form.html"
    form_class = IngredientAddForm
 
+class IngredientUpdate(UpdateView):
+   model = Ingredient
+   template_name = "inventory/ingredient_update_form.html"
+   fields = ("ingredient", "available_quantity", "measurement_unit", "price_per_unit")
+   success_url = "/ingredients/list"
+
 
 class MenuList(ListView):
    model = MenuItem
    template_name = "inventory/menu.html"
+   
 
 
 class MenuItemAdd(CreateView):

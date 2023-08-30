@@ -27,5 +27,6 @@ urlpatterns = [
     path("profit_revenue", views.RevenueList.as_view(), name="profitrevenuelist"),
     path("ingredients/add", views.IngredientAdd.as_view(), name="ingredientadd"),
     path("menu/add", views.MenuItemAdd.as_view(), name="menuitemadd"),
-    path("menu/add_recipe_requirement", views.RecipeRequirementsAdd.as_view(), name="reciperequirementadd")
+    path("menu/add_recipe_requirement", views.RecipeRequirementsAdd.as_view(), name="reciperequirementadd"),
+    path("ingredient/update/<pk>", views.IngredientUpdate.as_view(), name="ingredientupdate"),
 ]

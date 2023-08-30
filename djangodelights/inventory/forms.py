@@ -15,3 +15,4 @@ class RecipeRequirementsAddForm(forms.ModelForm):
     class Meta:
         model = RecipeRequirements
         fields = ("menu_item", "ingredient", "ingredient_quantity")
+
