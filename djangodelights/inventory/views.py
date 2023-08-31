@@ -3,55 +3,71 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.http import HttpResponse
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirements
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import IngredientAddForm, MenuItemAddForm, RecipeRequirementsAddForm, PurchaseAddForm
 
 # Create your views here.
+class SignUp(CreateView):
+  form_class = UserCreationForm
+  success_url = reverse_lazy("login")
+  template_name="registration/signup.html"
+
+def logout_view(request):
+   if request.method=="POST":
+        logout(request)
+        return redirect('login')
+
+@login_required
 def home(request):
    return render(request, 'inventory/home.html')
 
-class IngredientList(ListView):
+class IngredientList(LoginRequiredMixin, ListView):
    model=Ingredient
    template_name="inventory/ingredients.html"
 
-class IngredientDelete(DeleteView):
+class IngredientDelete(LoginRequiredMixin, DeleteView):
   model = Ingredient
   template_name = "inventory/ingredient_delete_form.html"
   success_url = "/ingredients/list"
 
-class IngredientAdd(CreateView):
+class IngredientAdd(LoginRequiredMixin, CreateView):
    model = Ingredient
    template_name = "inventory/ingredient_add_form.html"
    form_class = IngredientAddForm
 
-class IngredientUpdate(UpdateView):
+class IngredientUpdate(LoginRequiredMixin, UpdateView):
    model = Ingredient
    template_name = "inventory/ingredient_update_form.html"
    fields = ("ingredient", "available_quantity", "measurement_unit", "price_per_unit")
    success_url = "/ingredients/list"
 
 
-class MenuList(ListView):
+class MenuList(LoginRequiredMixin, ListView):
    model = MenuItem
    template_name = "inventory/menu.html"
 
-class MenuItemAdd(CreateView):
+class MenuItemAdd(LoginRequiredMixin, CreateView):
    model = MenuItem
    template_name = "inventory/menu_add_form.html"
    form_class = MenuItemAddForm
 
-class RecipeRequirementsAdd(CreateView):
+class RecipeRequirementsAdd(LoginRequiredMixin, CreateView):
    model = RecipeRequirements
    template_name = "inventory/reciperequirements_add_form.html"
    form_class = RecipeRequirementsAddForm
 
-class PurchaseList(ListView):
+class PurchaseList(LoginRequiredMixin, ListView):
    model = Purchase
    template_name = "inventory/purchases.html"
 
-class PurchaseAdd(CreateView):
+class PurchaseAdd(LoginRequiredMixin, CreateView):
    model = Purchase
    template_name = "inventory/purchase_add_form.html"
    form_class = PurchaseAddForm

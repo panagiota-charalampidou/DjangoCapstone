@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" href="/static/inventory/style.css?{% now "U" %}">
+<h2>Sign up</h2>
+<form class="signup" method="post">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="Signup"/>
+</form>
+<br>
+<p>Already have an account? Log in <a href="{% url 'login' %}">here</a></p>
+
+
+
